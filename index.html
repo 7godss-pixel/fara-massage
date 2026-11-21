@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>فرا ماساژ | نوبتها</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#141711">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="row1">
+    <div><div class="brand">فرا ماساژ · نوبتها</div><div class="sub">برنامه هفتگی</div><div class="muted" id="refreshTime"></div><div id="syncBadge" class="sync-ok">ذخیره دائمی فعال ✓</div></div>
+    <div><button class="iconbtn" onclick="manualRefresh()" title="\u0628\u0631\u0648\u0632\u0631\u0633\u0627\u0646\u06CC">\U0001F504</button> <button class="iconbtn" onclick="toggleDrawer(true)">☰ منو</button></div>
+  </div>
+</header>
+<div class="drawer-back" id="drawerBack" onclick="toggleDrawer(false)"></div>
+<aside class="drawer" id="drawer">
+  <h3>☰ منو</h3>
+  <button onclick="toggleDrawer(false);setTab('contacts')">👥 مخاطبین</button>
+  <button onclick="toggleDrawer(false);openScan()">📷 اسکن دفتر</button>
+  <button onclick="toggleDrawer(false);openLists('groups')">🗂 گروه‌ها</button>
+  <button onclick="toggleDrawer(false);openLists('services')">💆 خدمات</button>
+  <button onclick="toggleDrawer(false);openLists('therapists')">🧑‍⚕️ تراپیست‌ها</button>
+  <button onclick="toggleDrawer(false);exportBackup()">💾 پشتیبان‌گیری / بازیابی</button>
+  <button onclick="toggleDrawer(false);openSync()">🔗 همگام‌سازی و کد سالن</button>
+  <button class="close" onclick="toggleDrawer(false)">بستن ✕</button>
+</aside>
+<nav class="tabs">
+  <button data-tab="week" class="active" onclick="setTab('week')">هفته</button>
+  <button data-tab="today" onclick="setTab('today')">امروز</button>
+  <button data-tab="tomorrow" onclick="setTab('tomorrow')">فردا</button>
+  <button data-tab="future" onclick="setTab('future')">آینده</button>
+  <button data-tab="acc" onclick="setTab('acc')">حسابداری</button>
+  <button data-tab="packs" onclick="setTab('packs')">بسته‌ها</button>
+  <button data-tab="all" onclick="setTab('all')">همه</button>
+  <button data-tab="contacts" onclick="setTab('contacts')">مخاطبین</button>
+</nav>
+<div style="padding:0 12px;max-width:900px;margin:0 auto;display:flex;gap:8px">
+  <select id="groupFilter" onchange="UI.groupFilter=this.value;render()" style="background:#1e2318;color:#f2f4e8;border:1px solid #333a28;border-radius:10px;padding:8px"></select>
+  <div class="searchbar" style="flex:1;padding:0"><input id="q" placeholder="جست‌وجو با نام یا شماره…" oninput="onSearch(this.value)"></div>
+</div>
+<main id="main"></main>
+<div class="fab"><button class="primary" onclick="openForm()">+ نوبت جدید</button><button class="ghost" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button></div>
+<div class="sheet-back" id="sheetBack" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet"><div id="sheetBody"></div></div>
+<div class="undo" id="undo"><span></span><button onclick="undoBack()">برگرداندن</button></div>
+<script src="app.js"></script>
+<script src="sync.js"></script>
+</body>
+</html>
